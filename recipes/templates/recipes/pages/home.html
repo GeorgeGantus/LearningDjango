@@ -3,5 +3,19 @@
 {% include "recipes/partials/head.html" %}
 <body>
     {% include "recipes/partials/header.html" %}
+    {% include "recipes/partials/search.html" %}
+    <main class="main-content-container">
+        <div class="main-content main-content-list container">
+            {% include "recipes/partials/card.html" %}
+            {% include "recipes/partials/card.html" %}
+            {% include "recipes/partials/card.html" %}
+            {% include "recipes/partials/card.html" %}
+
+
+        </div>
+    </main>
+    <footer class="bg-black background footer">
+        <p>Todos os direitos reservados</p>
+    </footer>
 </body>
 </html>
