@@ -1,29 +1,41 @@
 <div class="card">
     <div class="card-image">
-        <img src="http://via.placeholder.com/1280x720" alt="temp">
+        <img src="{{ recipe.cover.url }}" alt="temp">
     </div>
     <div class="card-body">
         <h3 class="card-name">
-            Nome do card
+            {{ recipe.title }}
         </h3>
         <div class="card-tags">
-            <span>zezinho</span>
-            <span>20/03/2020</span>
-            <span class="card-category">Café da manhã</span>
+            <span><i class="fa-solid fa-user"></i>{{ recipe.author.first_name }}</span>
+            <span><i class="fa-solid fa-calendar"></i>{{ recipe.created_at|date:"d/m/Y"}}</span>
+            <span class="card-category"><i class="fa-brands fa-bandcamp"></i>{{ recipe.category.name }}</span>
         </div>
         <p class="card-description">
-            Lorem ipsum dolor sit amet consectetur adipisicing elit. Tempora harum nulla reprehenderit eligendi vero commodi distinctio nam dolorem laudantium minima, hic eveniet, praesentium perferendis unde rerum rem possimus ut officia?
+            {{ recipe.description }}
         </p>
     </div>
     <div class="card-info">
         <div class="card-time">
             <p>Tempo de Preparo</p>
-            <p>X tempo</p>
+            <p>{{ recipe.preparation_time }} {{ recipe.preparation_time_unit}}</p>
         </div>
         <div class="card-portions">
             <p>Num Porções</p>
-            <p>X porções</p>
+            <p>{{ recipe.servings }} {{  recipe.servings_unit }}</p>
         </div>
     </div>
-    <button type="button" class="card-more">Ver Mais</button>
+    {% if not is_detail_page %}
+        <a href="{% url 'recipes:recipe' recipe.id %}">
+            <div class="card-more">
+                Ver mais...
+            </div>
+        </a>
+    {% endif %}
+
+    {% if is_detail_page %}
+    <div class="preparation-steps">
+        {{recipe.preparation_steps|linebreaksbr}}
+    </div>
+    {% endif %}
 </div>
