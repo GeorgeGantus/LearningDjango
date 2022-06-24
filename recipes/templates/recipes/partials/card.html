@@ -7,7 +7,14 @@
             {{ recipe.title }}
         </h3>
         <div class="card-tags">
-            <span><i class="fa-solid fa-user"></i>{{ recipe.author.first_name }}</span>
+            <span>
+                <i class="fa-solid fa-user"></i>
+                {% if recipe.user.first_name %}
+                    {{ recipe.user.first_name }}
+                {% else %}
+                    {{ recipe.user.username }}
+                {% endif %}
+            </span>
             <span><i class="fa-solid fa-calendar"></i>{{ recipe.created_at|date:"d/m/Y"}}</span>
             <span class="card-category"><i class="fa-brands fa-bandcamp"></i>{{ recipe.category.name }}</span>
         </div>
