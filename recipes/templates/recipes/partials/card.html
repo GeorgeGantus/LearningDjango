@@ -7,6 +7,7 @@
             {{ recipe.title }}
         </h3>
         <div class="card-tags">
+            {% if recipe.user %}
             <span>
                 <i class="fa-solid fa-user"></i>
                 {% if recipe.user.first_name %}
@@ -15,12 +16,15 @@
                     {{ recipe.user.username }}
                 {% endif %}
             </span>
+            {% endif %}
             <span><i class="fa-solid fa-calendar"></i>{{ recipe.created_at|date:"d/m/Y"}}</span>
+            {% if recipe.category %}
             <span class="card-category">
                 <a href="{% url 'recipes:category' recipe.category.id %}">
                     <i class="fa-brands fa-bandcamp"></i>{{ recipe.category.name }}
                 </a>
             </span>
+            {% endif %}
         </div>
         <p class="card-description">
             {{ recipe.description }}

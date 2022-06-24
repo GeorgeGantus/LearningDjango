@@ -1,4 +1,4 @@
-from django.shortcuts import render
+from django.shortcuts import get_list_or_404, render
 
 from .models import Recipe
 
@@ -10,10 +10,13 @@ def home(request):
 
 
 def category(request, category_id):
-    recipes_by_category = Recipe.objects.filter(
-        category__id=category_id, is_published=True).order_by('-id')
-    return render(request, 'recipes/pages/home.html',
-                  context={'recipes': recipes_by_category})
+    recipes_by_category = get_list_or_404(Recipe.objects.filter(
+        category__id=category_id, is_published=True).order_by('-id'))
+
+    return render(request, 'recipes/pages/category.html',
+                  context={'recipes': recipes_by_category,
+                           'category_name': recipes_by_category.first()
+                           .category.name})
 
 
 def recipe(request, id):

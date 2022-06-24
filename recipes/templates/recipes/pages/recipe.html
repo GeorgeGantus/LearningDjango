@@ -1,5 +1,10 @@
 {% extends 'recipes/structure/base.html' %}
 
+{% block title %}
+    Recipe | {{recipe.title}}
+{% endblock title %}
+
+
 {% block content %}
     <div class="main-content main-content-item container">
         {% include "recipes/partials/card.html" %}
