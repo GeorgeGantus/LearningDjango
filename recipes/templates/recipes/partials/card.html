@@ -16,7 +16,11 @@
                 {% endif %}
             </span>
             <span><i class="fa-solid fa-calendar"></i>{{ recipe.created_at|date:"d/m/Y"}}</span>
-            <span class="card-category"><i class="fa-brands fa-bandcamp"></i>{{ recipe.category.name }}</span>
+            <span class="card-category">
+                <a href="{% url 'recipes:category' recipe.category.id %}">
+                    <i class="fa-brands fa-bandcamp"></i>{{ recipe.category.name }}
+                </a>
+            </span>
         </div>
         <p class="card-description">
             {{ recipe.description }}
