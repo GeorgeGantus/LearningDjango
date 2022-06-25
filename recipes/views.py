@@ -15,7 +15,7 @@ def category(request, category_id):
 
     return render(request, 'recipes/pages/category.html',
                   context={'recipes': recipes_by_category,
-                           'category_name': recipes_by_category.first()
+                           'category_name': recipes_by_category[0]
                            .category.name})
 
 
