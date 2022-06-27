@@ -5,7 +5,7 @@ from .test_recipe_base import RecipeTestBase
 
 """
 im using parameterized because i want to use unittest as test
-runner because it is the default django test runner 
+runner because it is the default django test runner
 """
 
 
