@@ -1,6 +1,6 @@
 <div class="center-container search-form-container">
-    <form action="" class="search-form">
-        <input placeholder="testando" type="search" name="search">
+    <form action="{% url 'recipes:search' %}"  class="search-form">
+        <input placeholder="testando" type="search" name="q" required>
         <button type="submit">
             <i class="fa-solid fa-magnifying-glass"></i>
         </button>
