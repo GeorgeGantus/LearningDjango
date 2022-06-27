@@ -1,6 +1,8 @@
 <div class="card">
     <div class="card-image">
+        {% if recipe.cover %}
         <img src="{{ recipe.cover.url }}" alt="temp">
+        {% endif %} 
     </div>
     <div class="card-body">
         <h3 class="card-name">
