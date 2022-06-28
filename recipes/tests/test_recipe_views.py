@@ -86,3 +86,9 @@ class RecipeViewsTest(RecipeTestBase):
     def test_recipe_search_view_raises_404_if_no_search(self):
         response = self.client.get(reverse('recipes:search'))
         self.assertEqual(response.status_code, 404)
+
+    def test_recipe_search_view_escapes_search(self):
+        url = reverse('recipes:search') + '?q=<notarealtag>'
+        response = self.client.get(url)
+        self.assertIn('Search for "&lt;notarealtag&gt;"',
+                      response.content.decode('utf-8'))
