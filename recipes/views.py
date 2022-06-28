@@ -29,8 +29,10 @@ def recipe(request, id):
 
 
 def search(request):
-    search = request.GET.get('q')
+    search = request.GET.get('q', '').strip()
     if not search:
         raise Http404()
 
-    return render(request, 'recipes/pages/search.html')
+    return render(request, 'recipes/pages/search.html', context={
+        'search_value': search
+    })
