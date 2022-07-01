@@ -1,0 +1,17 @@
+{% if recipes and recipes.has_other_pages %}
+<div class="pagination">
+    <div>
+        <span class="pagination-start {% if not paginator_range.first_page_out_of_range %}pagination-hidden{% endif %}">
+            <a href="?page=1{{ additional_url_query }}">Start</a>
+        </span>
+        <span class="pagination-body">
+            {% for page in paginator_range.pagination %}
+                <a href="?page={{page}}{{ additional_url_query }}" class="pagination-item">{{page}}</a>
+            {% endfor %}
+        </span>
+        <span class="pagination-end {% if not paginator_range.last_page_out_of_range %}pagination-hidden{% endif %}">
+            <a href="?page={{paginator_range.total_pages}}{{ additional_url_query }}">End</a>
+        </span>
+    </div>
+</div>
+{% endif %}

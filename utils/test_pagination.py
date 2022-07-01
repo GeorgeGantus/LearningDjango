@@ -1,6 +1,7 @@
 from unittest import TestCase
+from unittest.mock import Mock
 
-from utils.pagination import make_pagination_range
+from utils.pagination import make_pagination, make_pagination_range
 
 
 class PaginationTest(TestCase):
@@ -57,3 +58,9 @@ class PaginationTest(TestCase):
             current_page=2
         )['pagination']
         self.assertEqual(pagination, [1, 2])
+
+    def test_make_pagination_returns_first_page_when_page_is_invalid(self):
+        request = Mock()
+        request.GET = {'page': 'notavalidpage'}
+        _, paginator_range = make_pagination(request, list(range(1, 100)), 9)
+        self.assertEqual(paginator_range['current_page'], 1)
