@@ -1,0 +1,281 @@
+* {
+    padding: 0;
+    margin: 0;
+    box-sizing: border-box;
+    font-family: Roboto;
+}
+
+html {
+    font-size: 62.5%;
+}
+
+body {
+    font-size: 1.6rem;
+    background-color: #fbfbfb;
+}
+
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+    font-family: Roboto;
+}
+
+.background {
+    width: 100%;
+    display: flex;
+    justify-content: center;
+}
+
+.bg-black {
+    background-color: black;
+}
+
+.header-link {
+    text-decoration: none;
+}
+
+.page-title {
+    color: white;
+}
+
+.container {
+    max-width: 144rem;
+    padding: 20px 0;
+    margin: 0 auto;
+}
+
+.center-container {
+    width: 100%;
+    display: flex;
+    justify-content: center;
+}
+
+.search-form-container {
+    margin: 20px 0;
+}
+
+.search-form {
+    max-width: 64rem;
+    flex-grow: 1;
+    border: 2px solid black;
+    border-radius: 6px;
+    display: flex;
+    padding: .5rem 1rem;
+    margin: 0 1rem;
+    transition: all 300ms ease-in-out;
+}
+
+.search-form:focus-within {
+    border-color: blue;
+    background-color: white;
+}
+
+.search-form:focus-within button {
+    color: blue;
+}
+
+.search-form input,
+.search-form button {
+    outline: none;
+    border: none;
+    background: none;
+}
+
+.search-form input {
+    flex-grow: 1;
+}
+
+.main-content {
+    padding-top: 0;
+}
+
+.main-content-container {
+    padding: 10px;
+}
+
+.main-content-list {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(340px, 1fr));
+    gap: 4rem;
+}
+
+.item {
+    background: red;
+    height: 50px;
+}
+
+.card {
+    text-align: center;
+    transition: all 300ms ease-in-out;
+    box-shadow: 0 0 2px rgb(0 0 0);
+    border-radius: 4px;
+    height: fit-content;
+}
+
+.card a {
+    text-decoration: none;
+}
+
+.card:hover {
+    box-shadow: 0 0 6px rgb(0 0 0);
+
+}
+
+.card-image {
+    height: 300px;
+    background-color: aqua;
+}
+
+.card-image img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+
+.card-body {
+    padding: 10px 10px;
+    text-align: center;
+}
+
+.card-name {
+    margin-bottom: 10px;
+}
+
+.card-tags {
+    font-style: italic;
+    color: gray;
+    margin-bottom: 10px;
+}
+
+.card-tags span {
+    margin: 0 5px;
+}
+
+.card-tags i {
+    margin-right: 5px;
+}
+
+.card-category {
+    font-weight: bold;
+    color: black;
+}
+
+.card-category a {
+    color: lightseagreen;
+}
+
+.card-category a:hover {
+    color: black;
+}
+
+.card-description {
+    text-align: left;
+}
+
+.card-info {
+    background-color: #f1f1f1;
+    padding: 10px 0;
+    display: flex;
+    justify-content: center;
+}
+
+.card-info>div {
+    flex: 1;
+}
+
+.card-more {
+    width: 100%;
+    background-color: black;
+    color: white;
+    padding: 10px 0;
+    border: none;
+    cursor: pointer;
+}
+
+.preparation-steps {
+    padding: 10px 20px;
+    text-align: left;
+    list-style-position: inside;
+}
+
+.preparation-steps ul,
+.preparation-steps ol {
+    list-style-position: inside;
+}
+
+.footer {
+    text-align: center;
+    color: white;
+    padding: 10px 0;
+}
+
+.pagination {
+    display: flex;
+    justify-content: center;
+    margin-bottom: 10px;
+}
+
+.pagination .pagination-item {
+    padding: 0px 5px;
+}
+
+.pagination a {
+    text-decoration: none;
+    color: lightseagreen;
+}
+
+.pagination a:hover {
+    text-decoration: underline;
+    color: black;
+    cursor: pointer;
+}
+
+.pagination .pagination-start {
+    margin-right: 20px;
+}
+
+.pagination .pagination-end {
+    margin-left: 20px;
+}
+
+.pagination-hidden {
+    visibility: hidden;
+}
+
+/* MESSAGES */
+.message {
+    text-align: center;
+    padding: 10px;
+    border-radius: 4px;
+    margin-bottom: 5px;
+}
+
+.message-success {
+    border: 1px solid #48e048;
+    background-color: #bdffbd;
+}
+
+.message-warning {
+    border: 1px solid #ffbe26;
+    background-color: #fcdc90;
+}
+
+.message-error {
+    border: 1px solid #f52020;
+    background-color: #f59595;
+}
+
+.message-info,
+.message-debug {
+    border: 1px solid #008cff;
+    background-color: #90ccfc;
+}
+
+@media (max-width: 600px) {
+    .main-content-list {
+        grid-template-columns: repeat(auto-fit, minmax(100%, 1fr));
+    }
+}
