@@ -14,7 +14,6 @@ def home(request):
     recipes = Recipe.objects.filter(is_published=True).order_by('-id')
 
     page_obj, paginator_range = make_pagination(request, recipes, PER_PAGE)
-
     return render(request, 'recipes/pages/home.html',
                   context={
                       'recipes': page_obj,
