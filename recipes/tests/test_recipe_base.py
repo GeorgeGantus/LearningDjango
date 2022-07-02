@@ -36,9 +36,14 @@ class RecipeTestBase(TestCase):
         preparation_time_unit='Minutos',
         preparation_steps_is_html=False,
         is_published=True,
+        category=None
     ):
+
+        if not category:
+            category = self.make_category(**category_data)
+
         return Recipe.objects.create(
-            category=self.make_category(**category_data),
+            category=category,
             user=self.make_user(**user_data),
             title=title,
             description=description,
@@ -51,3 +56,10 @@ class RecipeTestBase(TestCase):
             preparation_steps_is_html=preparation_steps_is_html,
             is_published=is_published,
         )
+
+    def make_n_recipes(self, n):
+        category = self.make_category()
+        for i in range(n):
+            kwargs = {'slug': f's{i}', 'category': category,
+                      'user_data': {'username': f'u{i}'}}
+            self.make_recipe(**kwargs)

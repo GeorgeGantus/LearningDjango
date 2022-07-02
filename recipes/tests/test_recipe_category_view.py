@@ -1,3 +1,5 @@
+from unittest.mock import patch
+
 from django.urls import resolve, reverse
 from recipes import views
 
@@ -27,3 +29,15 @@ class RecipeCategoryViewTest(RecipeTestBase):
         response = self.client.get(reverse('recipes:category', kwargs={
                                    'category_id': recipe.category.id}))
         self.assertEqual(response.status_code, 404)
+
+    def test_recipe_category_is_paginated(self):
+        self.make_n_recipes(8)
+        with patch('recipes.views.PER_PAGE', new=3):
+            response = self.client.get(
+                reverse('recipes:category', kwargs={'category_id': 1}))
+            paginator = response.context['recipes'].paginator
+
+            self.assertEqual(paginator.num_pages, 3)
+            self.assertEqual(len(paginator.get_page(1)), 3)
+            self.assertEqual(len(paginator.get_page(2)), 3)
+            self.assertEqual(len(paginator.get_page(3)), 2)
