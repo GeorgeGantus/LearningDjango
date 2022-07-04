@@ -15,3 +15,7 @@ class RegisterViewTest(TestCase):
     def test_authors_register_loads_correct_template(self):
         response = self.client.get(reverse('authors:register'))
         self.assertTemplateUsed(response, 'authors/pages/register.html')
+
+    def test_register_create_returns_404_when_method_is_get(self):
+        response = self.client.get(reverse('authors:create'))
+        self.assertEqual(response.status_code, 404)
