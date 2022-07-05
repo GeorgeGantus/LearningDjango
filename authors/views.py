@@ -20,6 +20,8 @@ def register_create(request):
     request.session['register_form_data'] = post
     form = RegisterForm(post)
     if form.is_valid():
+        user = form.save(commit=False)
+        user.set_password(user.password)
         form.save()
         messages.success(request, 'Author created')
         del(request.session['register_form_data'])

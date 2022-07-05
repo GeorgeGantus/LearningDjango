@@ -83,7 +83,7 @@ class RegisterForm(forms.ModelForm):
         # to validate each field you need to write a method named
         # clean_field_name
     def clean_password(self):
-        data = self.cleaned_data["password"]
+        data = self.cleaned_data['password']
         regex = re.compile(r'^(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9]).{8,}$')
         if not regex.match(data):
             raise ValidationError((
@@ -95,7 +95,14 @@ class RegisterForm(forms.ModelForm):
             )
         return data
 
-        # validate fields together
+    def clean_email(self):
+        email = self.cleaned_data['email']
+        exists = User.objects.filter(email=email).exists()
+        if exists:
+            raise ValidationError('This e-mail is already in use')
+        return email
+    # validate fields together
+
     def clean(self):
         cleaned_data = super().clean()
         password = cleaned_data.get('password')
