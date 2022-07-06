@@ -1,0 +1,20 @@
+{% extends 'globals/structure/base.html' %}
+{% block title %} Login | Author{% endblock title %}
+{% block content %}
+<div class="form-title">
+    <h2>Login</h2>
+</div>
+{% if request.user.is_authenticated %}
+    <p>
+      Your are logged in with 
+      {{ request.user.username }}.
+    </p>
+    <form action=" {% url 'authors:logout' %}" method="POST">
+        {% csrf_token %}
+        <input type="hidden" name="username" value="{{request.user.username}}">
+        <button type="submit">Click here to logout</button>
+    </form>
+{% endif %}
+{% include "globals/partials/messages.html" %}
+{% include "globals/partials/form.html" %}
+{% endblock content %}
