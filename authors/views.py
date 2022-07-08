@@ -65,4 +65,7 @@ def logout_action_view(request):
         raise Http404()
     if request.POST.get('username') == request.user.username:
         logout(request)
+        messages.success(request, 'Logged out')
+        return redirect('authors:login')
+    messages.error(request, 'Invalid logout user')
     return redirect('authors:login')

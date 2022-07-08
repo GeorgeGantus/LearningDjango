@@ -1,17 +1,17 @@
 {% if recipes and recipes.has_other_pages %}
-<div class="pagination">
+<nav role="navigation" aria-label="Main pagination" class="pagination">
     <div>
         <span class="pagination-start {% if not paginator_range.first_page_out_of_range %}pagination-hidden{% endif %}">
-            <a href="?page=1{{ additional_url_query }}">Start</a>
+            <a href="?page=1{{ additional_url_query }}" aria-label="Go to page 1">Start</a>
         </span>
         <span class="pagination-body">
             {% for page in paginator_range.pagination %}
-                <a href="?page={{page}}{{ additional_url_query }}" class="pagination-item">{{page}}</a>
+                <a aria-label="Go to page {{page}}" href="?page={{page}}{{ additional_url_query }}" class="pagination-item">{{page}}</a>
             {% endfor %}
         </span>
         <span class="pagination-end {% if not paginator_range.last_page_out_of_range %}pagination-hidden{% endif %}">
-            <a href="?page={{paginator_range.total_pages}}{{ additional_url_query }}">End</a>
+            <a aria-label="Go to page {{paginator_range.total_pages}}" href="?page={{paginator_range.total_pages}}{{ additional_url_query }}">End</a>
         </span>
     </div>
-</div>
+</nav>
 {% endif %}

@@ -60,7 +60,8 @@ class RecipeMixin:
     def make_n_recipes(self, n):
         category = self.make_category()
         for i in range(n):
-            kwargs = {'slug': f's{i}', 'category': category,
+            kwargs = {'title': f'Recipe {i}', 'slug': f's{i}',
+                      'category': category,
                       'user_data': {'username': f'u{i}'}}
             self.make_recipe(**kwargs)
 

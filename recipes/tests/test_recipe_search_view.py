@@ -70,7 +70,7 @@ class RecipeSearchViewTest(RecipeTestBase):
     def test_recipe_search_is_paginated(self):
         self.make_n_recipes(8)
         with patch('recipes.views.PER_PAGE', new=3):
-            response = self.client.get(reverse('recipes:search')+'?q=Title')
+            response = self.client.get(reverse('recipes:search')+'?q=Recipe')
             recipes = response.context['recipes']
             paginator = recipes.paginator
 
