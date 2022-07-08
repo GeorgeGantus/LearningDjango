@@ -56,7 +56,7 @@ def login_action_view(request):
             messages.error(request, 'Invalid credentials.')
     else:
         messages.error(request, 'Invalid username or password')
-    return redirect('authors:login')
+    return redirect('authors:dashboard')
 
 
 @login_required(login_url='authors:login', redirect_field_name='redirect')
@@ -69,3 +69,8 @@ def logout_action_view(request):
         return redirect('authors:login')
     messages.error(request, 'Invalid logout user')
     return redirect('authors:login')
+
+
+@login_required(login_url='authors:login', redirect_field_name='redirect')
+def dashboard_view(request):
+    return render(request, 'authors/pages/dashboard.html')
