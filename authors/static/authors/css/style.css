@@ -1,3 +1,7 @@
+.inline-form {
+    display: inline;
+}
+
 .form-group {
     margin-bottom: 1rem;
 }
@@ -33,6 +37,10 @@
     justify-content: center;
 }
 
+.form-image img {
+    max-width: 100%;
+}
+
 .errorlist {
     list-style-type: none;
     color: red;
@@ -54,4 +62,9 @@
 .logged-message button {
     margin-top: 5px;
     padding: 5px;
+}
+
+.user-recipes {
+    margin: 0 auto;
+    max-width: 64rem;
 }

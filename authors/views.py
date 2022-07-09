@@ -3,9 +3,11 @@ from django.contrib.auth import authenticate, login, logout
 from django.contrib.auth.decorators import login_required
 from django.http import Http404
 from django.shortcuts import redirect, render
+from django.template.defaultfilters import slugify
 from django.urls import reverse
+from recipes.models import Recipe
 
-from .forms import LoginForm, RegisterForm
+from .forms import AuthorRecipeForm, LoginForm, RegisterForm
 
 
 # Create your views here.
@@ -73,4 +75,93 @@ def logout_action_view(request):
 
 @login_required(login_url='authors:login', redirect_field_name='redirect')
 def dashboard_view(request):
-    return render(request, 'authors/pages/dashboard.html')
+    recipes = Recipe.objects.filter(is_published=False, user=request.user)
+    return render(
+        request,
+        'authors/pages/dashboard.html',
+        context={
+            'recipes': recipes
+        }
+    )
+
+
+@login_required(login_url='authors:login', redirect_field_name='redirect')
+def dashboard_recipe_edit(request, id):
+    recipe = Recipe.objects.filter(
+        is_published=False,
+        user=request.user,
+        pk=id
+    ).first()
+    if not recipe:
+        raise Http404()
+
+    form = AuthorRecipeForm(
+        data=request.POST or None,
+        files=request.FILES or None,
+        instance=recipe
+    )
+
+    if form.is_valid():
+        recipe = form.save(commit=False)
+
+        recipe.user = request.user
+        recipe.preparation_steps_is_html = False
+        recipe.is_published = False
+
+        recipe.save()
+        messages.success(request, "Recipe edited successfully")
+        return redirect(reverse('authors:dashboard_recipe_edit', args=(id,)))
+
+    return render(
+        request,
+        'authors/pages/dashboard_recipe.html',
+        context={
+            'form': form
+        }
+    )
+
+
+@login_required(login_url='authors:login', redirect_field_name='redirect')
+def dashboard_recipe_create(request):
+
+    form = AuthorRecipeForm(
+        data=request.POST or None,
+        files=request.FILES or None
+    )
+    if form.is_valid():
+        recipe = form.save(commit=False)
+        recipe.user = request.user
+        recipe.is_published = False
+        recipe.preparation_steps_is_html = False
+        recipe.slug = slugify(recipe.title)
+
+        recipe.save()
+        messages.success(request, 'Recipe created successfully')
+        return redirect(reverse('authors:dashboard_recipe_edit',
+                                args=(recipe.id,)))
+
+    return render(
+        request,
+        'authors/pages/dashboard_recipe.html',
+        context={
+            'form': form
+        }
+    )
+
+
+@login_required(login_url='authors:login', redirect_field_name='redirect')
+def dashboard_recipe_delete(request, id):
+    if request.method != 'POST':
+        raise Http404()
+    recipe = Recipe.objects.filter(
+        is_published=False,
+        user=request.user,
+        pk=id
+    ).first()
+
+    if not recipe:
+        raise Http404()
+
+    recipe.delete()
+    messages.success(request, 'Recipe deleted')
+    return redirect('authors:dashboard')

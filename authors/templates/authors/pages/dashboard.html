@@ -5,5 +5,26 @@
     <h2>Dashboard</h2>
 </div>
 {% include "authors/partials/login_message.html" %}
+
+<div class="user-recipes">
+    <h3>Your Recipes</h3>
+    <ul>
+        {% for recipe in recipes  %}
+        <li>
+            <a href="{% url 'authors:dashboard_recipe_edit' recipe.id %}">{{recipe.title}}</a>
+            - 
+            <form class="inline-form delete-form" action="{% url 'authors:dashboard_recipe_delete' recipe.id %}" method="post">
+            {% csrf_token %}
+                <button>❌</button>
+            </form>
+        </li>
+        {% empty %}
+        <li>
+            <p>Você não tem receitas</p>
+        </li>
+        {% endfor %}
+    </ul>
+</div>
+
 {% include "globals/partials/messages.html" %}
 {% endblock content %}
