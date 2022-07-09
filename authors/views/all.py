@@ -1,3 +1,4 @@
+from authors.forms import AuthorRecipeForm, LoginForm, RegisterForm
 from django.contrib import messages
 from django.contrib.auth import authenticate, login, logout
 from django.contrib.auth.decorators import login_required
@@ -6,8 +7,6 @@ from django.shortcuts import redirect, render
 from django.template.defaultfilters import slugify
 from django.urls import reverse
 from recipes.models import Recipe
-
-from .forms import AuthorRecipeForm, LoginForm, RegisterForm
 
 
 # Create your views here.
@@ -85,8 +84,7 @@ def dashboard_view(request):
     )
 
 
-# Keep it here to have an example of function based view
-""" @login_required(login_url='authors:login', redirect_field_name='redirect')
+@login_required(login_url='authors:login', redirect_field_name='redirect')
 def dashboard_recipe_edit(request, id):
     recipe = Recipe.objects.filter(
         is_published=False,
@@ -119,7 +117,7 @@ def dashboard_recipe_edit(request, id):
         context={
             'form': form
         }
-    ) """
+    )
 
 
 @login_required(login_url='authors:login', redirect_field_name='redirect')
