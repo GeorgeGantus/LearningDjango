@@ -1,7 +1,8 @@
 import os
 
 from django.db.models import Q
-from django.http import Http404
+from django.forms.models import model_to_dict
+from django.http import Http404, JsonResponse
 from django.views.generic import DetailView, ListView
 from utils.pagination import make_pagination
 
@@ -36,6 +37,17 @@ class RecipeListViewBase(ListView):
 
 class RecipeListViewHome(RecipeListViewBase):
     template_name = 'recipes/pages/home.html'
+
+
+class RecipeListViewHomeAPI(RecipeListViewBase):
+    def render_to_response(self, context, **response_kwargs):
+
+        recipes_paginator = self.get_context_data()['recipes']
+        recipes_list = recipes_paginator.object_list.values()
+        return JsonResponse(
+            list(recipes_list),
+            safe=False
+        )
 
 
 class RecipeListViewCategory(RecipeListViewBase):
@@ -94,6 +106,27 @@ class RecipeDetails(DetailView):
         context = super().get_context_data(*args, **kwargs)
         context["is_detail_page"] = True
         return context
+
+
+class RecipeDetailsAPI(RecipeDetails):
+    def render_to_response(self, context, **response_kwargs):
+        recipe = self.get_context_data()['recipe']
+        recipe_dict = model_to_dict(recipe)
+        recipe_dict['created_at'] = str(recipe.created_at)
+        recipe_dict['updated_at'] = str(recipe.updated_at)
+
+        if recipe_dict.get('cover'):
+            recipe_dict['cover'] = recipe_dict['cover'].url
+        else:
+            recipe_dict['cover'] = ''
+
+        del recipe_dict['is_published']
+        del recipe_dict['preparation_steps_is_html']
+
+        return JsonResponse(
+            recipe_dict,
+            safe=False
+        )
 
 
 # Keep here to have an example of function based views
