@@ -1,0 +1,21 @@
+<button class="menu-open-button menu-open-visible">
+    <i class="fa-solid fa-bars"></i>
+</button>
+
+<div class="menu-container menu-hidden">
+    <button class="menu-close-button">
+        <i class="fa-solid fa-circle-xmark"></i>
+    </button>
+    <nav class="menu-nav">
+        <a href="{% url 'recipes:home' %}">Home</a>
+        {% if user.is_authenticated %}
+            <a href="{% url 'authors:dashboard' %}">Dashboard</a>
+            <a href="{% url 'authors:dashboard_recipe_create' %}">New Recipe</a>
+            {% include 'authors/partials/logout_form.html' %}
+            <a class="logout-link" href="">Logout</a>
+        {% else %}
+            <a href="{% url 'authors:login' %}">Login</a>
+            <a href="{% url 'authors:register' %}">Register</a>
+        {% endif %}
+    </nav>
+</div>
