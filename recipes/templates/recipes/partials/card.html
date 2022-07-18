@@ -11,12 +11,22 @@
         <div class="card-tags">
             {% if recipe.user %}
             <span>
+                {% if recipe.user.profile %}
+                <a href="{% url 'authors:profile' recipe.user.profile.id %}">
+                {% endif %}
+
                 <i class="fa-solid fa-user"></i>
                 {% if recipe.user.first_name %}
                     {{ recipe.user.first_name }}
                 {% else %}
                     {{ recipe.user.username }}
                 {% endif %}
+
+                {% if recipe.user.profile %}
+                </a>
+                {% endif %}
+                
+
             </span>
             {% endif %}
             <span><i class="fa-solid fa-calendar"></i>{{ recipe.created_at|date:"d/m/Y"}}</span>
